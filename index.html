@@ -1,0 +1,1336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nutrition Reality — Evidence-Based Guide</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+  :root {
+    --bg: #0a0a0f;
+    --card: #12121a;
+    --card2: #16161f;
+    --border: #1e1e2e;
+    --text: #e0e0e0;
+    --muted: #888;
+    --dim: #555;
+    --accent: #7c5cff;
+    --accent2: #ff6b6b;
+    --green: #4ecdc4;
+    --yellow: #ffd93d;
+    --orange: #ff9f43;
+    --gradient: linear-gradient(135deg, #7c5cff, #4ecdc4);
+    --gradient2: linear-gradient(135deg, #ff6b6b, #ffd93d);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* HERO */
+  .hero {
+    min-height: 70vh;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    text-align: center; padding: 4rem 2rem;
+    position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; top: -50%; left: -50%;
+    width: 200%; height: 200%;
+    background: radial-gradient(ellipse at center, rgba(124,92,255,0.08) 0%, transparent 60%);
+    animation: pulse 8s ease-in-out infinite;
+  }
+  .hero::after {
+    content: '';
+    position: absolute; bottom: -50%; right: -50%;
+    width: 200%; height: 200%;
+    background: radial-gradient(ellipse at center, rgba(78,205,196,0.05) 0%, transparent 60%);
+    animation: pulse 8s ease-in-out infinite reverse;
+  }
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); opacity: 0.5; }
+    50% { transform: scale(1.1); opacity: 1; }
+  }
+  .hero h1 {
+    font-size: clamp(2.5rem, 6vw, 5rem);
+    font-weight: 900;
+    background: var(--gradient);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+    position: relative; z-index: 1;
+    letter-spacing: -0.02em;
+  }
+  .hero .subtitle {
+    font-size: 1.3rem; color: var(--muted);
+    margin-top: 1rem; max-width: 650px;
+    position: relative; z-index: 1;
+  }
+  .hero .badge {
+    margin-top: 1.5rem;
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    background: rgba(124,92,255,0.1); border: 1px solid rgba(124,92,255,0.2);
+    padding: 0.5rem 1.2rem; border-radius: 999px;
+    font-size: 0.8rem; color: var(--accent);
+    font-weight: 600; position: relative; z-index: 1;
+  }
+
+  /* NAV */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(10,10,15,0.92);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    padding: 0.75rem 1rem;
+    display: flex; gap: 0.5rem;
+    overflow-x: auto; justify-content: center;
+    flex-wrap: wrap;
+    -webkit-overflow-scrolling: touch;
+  }
+  nav a {
+    color: var(--muted); text-decoration: none;
+    font-size: 0.78rem; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.04em;
+    padding: 0.35rem 0.8rem; border-radius: 999px;
+    transition: all 0.3s; white-space: nowrap;
+  }
+  nav a:hover { color: var(--text); background: rgba(124,92,255,0.12); }
+
+  /* LAYOUT */
+  .container { max-width: 920px; margin: 0 auto; padding: 2rem 1.5rem; }
+  section { margin-bottom: 5rem; scroll-margin-top: 4rem; }
+
+  /* HEADINGS */
+  h2 {
+    font-size: 2rem; font-weight: 800;
+    margin-bottom: 0.5rem;
+    display: flex; align-items: center; gap: 0.75rem;
+  }
+  h2 .icon {
+    font-size: 1.4rem; width: 2.5rem; height: 2.5rem;
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 12px; background: rgba(124,92,255,0.12);
+    flex-shrink: 0;
+  }
+  .section-desc {
+    color: var(--muted); font-size: 0.95rem;
+    margin-bottom: 2rem; max-width: 700px;
+  }
+  h3 {
+    font-size: 1.25rem; font-weight: 700;
+    margin: 2.5rem 0 1rem; color: var(--green);
+  }
+  h4 { font-size: 1.05rem; font-weight: 600; margin-bottom: 0.75rem; }
+
+  /* CARDS */
+  .card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 16px; padding: 1.75rem;
+    margin-bottom: 1.5rem; transition: all 0.3s;
+  }
+  .card:hover {
+    border-color: rgba(124,92,255,0.25);
+    box-shadow: 0 0 40px rgba(124,92,255,0.04);
+  }
+  .card p, .card li { color: var(--muted); font-size: 0.93rem; }
+  .card ul { list-style: none; padding: 0; }
+  .card ul li { padding: 0.35rem 0 0.35rem 1.5rem; position: relative; }
+  .card ul li::before { content: '→'; position: absolute; left: 0; color: var(--accent); }
+
+  /* SPECIAL CARDS */
+  .myth-card { border-left: 4px solid var(--accent2); }
+  .myth-card .label { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent2); margin-bottom: 0.5rem; }
+  .truth-card { border-left: 4px solid var(--green); }
+  .truth-card .label { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--green); margin-bottom: 0.5rem; }
+  .study-card { border-left: 4px solid var(--accent); background: var(--card2); }
+  .study-card .label { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent); margin-bottom: 0.5rem; }
+  .opposing-card { border-left: 4px solid var(--orange); background: var(--card2); }
+  .opposing-card .label { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--orange); margin-bottom: 0.5rem; }
+
+  /* CONFIDENCE BADGES */
+  .confidence {
+    display: inline-flex; align-items: center; gap: 0.3rem;
+    font-size: 0.7rem; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.05em; padding: 0.2rem 0.65rem;
+    border-radius: 999px; margin-left: 0.5rem; vertical-align: middle;
+  }
+  .confidence-high { background: rgba(78,205,196,0.15); color: var(--green); }
+  .confidence-med { background: rgba(255,217,61,0.15); color: var(--yellow); }
+  .confidence-low { background: rgba(255,107,107,0.15); color: var(--accent2); }
+
+  /* CALLOUTS */
+  .callout {
+    background: rgba(255,217,61,0.04);
+    border: 1px solid rgba(255,217,61,0.15);
+    border-radius: 12px; padding: 1.25rem;
+    margin: 1.5rem 0; font-size: 0.9rem;
+  }
+  .callout strong { color: var(--yellow); }
+  .callout-honest {
+    background: rgba(124,92,255,0.04);
+    border: 1px solid rgba(124,92,255,0.15);
+    border-radius: 12px; padding: 1.25rem;
+    margin: 1.5rem 0; font-size: 0.9rem;
+  }
+  .callout-honest strong { color: var(--accent); }
+
+  /* GRIDS */
+  .comparison {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;
+  }
+  @media (max-width: 640px) { .comparison { grid-template-columns: 1fr; } }
+
+  /* TABLES */
+  table {
+    width: 100%; border-collapse: collapse;
+    margin: 1rem 0; font-size: 0.88rem;
+  }
+  th {
+    text-align: left; padding: 0.7rem 0.9rem;
+    background: rgba(124,92,255,0.08);
+    border-bottom: 2px solid var(--border);
+    font-weight: 600; color: var(--accent);
+    font-size: 0.8rem;
+  }
+  td {
+    padding: 0.65rem 0.9rem;
+    border-bottom: 1px solid var(--border);
+    color: var(--muted);
+  }
+  tr:hover td { background: rgba(255,255,255,0.015); }
+
+  /* FLOW DIAGRAMS */
+  .flow {
+    display: flex; align-items: center; gap: 0.4rem;
+    flex-wrap: wrap; margin: 1rem 0; font-size: 0.88rem;
+  }
+  .flow-step {
+    background: var(--card); border: 1px solid var(--border);
+    padding: 0.45rem 0.9rem; border-radius: 8px; font-weight: 500;
+  }
+  .flow-arrow { color: var(--accent); font-weight: bold; font-size: 1.1rem; }
+
+  /* PERCENT BARS */
+  .percent-bar {
+    height: 8px; border-radius: 4px;
+    background: var(--border); margin: 0.4rem 0; overflow: hidden;
+  }
+  .percent-fill { height: 100%; border-radius: 4px; }
+
+  /* CITATIONS */
+  .cite {
+    font-size: 0.78rem; color: var(--dim);
+    font-style: italic; margin-top: 0.5rem;
+  }
+  .cite a { color: var(--dim); text-decoration: underline; }
+  .cite a:hover { color: var(--muted); }
+
+  /* TAGS */
+  .tag {
+    display: inline-block; font-size: 0.68rem; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.05em;
+    padding: 0.15rem 0.55rem; border-radius: 999px; margin-right: 0.25rem;
+  }
+  .tag-myth { background: rgba(255,107,107,0.15); color: var(--accent2); }
+  .tag-truth { background: rgba(78,205,196,0.15); color: var(--green); }
+  .tag-info { background: rgba(124,92,255,0.15); color: var(--accent); }
+
+  /* FOOTER */
+  footer {
+    text-align: center; padding: 3rem 2rem;
+    color: var(--dim); font-size: 0.8rem;
+    border-top: 1px solid var(--border);
+  }
+  footer a { color: var(--muted); }
+
+  /* CHAPTER NUMBERS */
+  .chapter-num {
+    font-size: 0.7rem; font-weight: 700;
+    color: var(--dim); text-transform: uppercase;
+    letter-spacing: 0.15em; margin-bottom: 0.25rem;
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>Nutrition Reality</h1>
+  <p class="subtitle">A mechanistic guide to how your body actually works — backed by evidence, honest about uncertainty, and free from industry propaganda.</p>
+  <div class="badge">📖 12 Chapters · 100+ Claims · Every Confidence Level Rated</div>
+</div>
+
+<nav>
+  <a href="#ch1">Brain</a>
+  <a href="#ch2">Gut</a>
+  <a href="#ch3">Transporters</a>
+  <a href="#ch4">Fats</a>
+  <a href="#ch5">Organs</a>
+  <a href="#ch6">Vitamins</a>
+  <a href="#ch7">Eyes</a>
+  <a href="#ch8">Milk</a>
+  <a href="#ch9">Cooking</a>
+  <a href="#ch10">Keto</a>
+  <a href="#ch11">Myths</a>
+  <a href="#ch12">Epistemics</a>
+</nav>
+
+<div class="container">
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- CHAPTER 1: BRAIN & COGNITION -->
+<!-- ═══════════════════════════════════════════════════ -->
+<section id="ch1">
+  <div class="chapter-num">Chapter 1</div>
+  <h2><span class="icon">🧠</span> Brain &amp; Cognition</h2>
+  <p class="section-desc">Your brain is the most metabolically expensive organ — 2% of body weight, 20% of energy. What you eat directly determines how well it runs.</p>
+
+  <div class="card">
+    <h4>Brain Fog <span class="confidence confidence-high">HIGH confidence</span></h4>
+    <p>Brain fog is a real symptom cluster — impaired concentration, poor recall, mental sluggishness, difficulty finding words. It's not a diagnosis; it's a downstream signal that something upstream is broken.</p>
+    <ul>
+      <li><strong>Neuroinflammation</strong> — pro-inflammatory cytokines (IL-6, TNF-α) cross the blood-brain barrier, activate microglia, slow synaptic transmission</li>
+      <li><strong>Gut-brain axis</strong> — dysbiotic bacteria produce LPS (lipopolysaccharide) → enters bloodstream via leaky gut → triggers systemic + neuroinflammation</li>
+      <li><strong>DHA deficiency</strong> — brain is ~60% fat by dry weight, primarily DHA. Low DHA = impaired membrane fluidity = slower signal propagation</li>
+      <li><strong>B12 deficiency</strong> — B12 is essential for myelin sheath synthesis. Demyelination = signal leakage, cognitive decline</li>
+      <li><strong>Blood sugar instability</strong> — neurons rely on glucose; reactive hypoglycemia (sugar crash) starves them</li>
+      <li><strong>Poor sleep</strong> — the glymphatic system clears β-amyloid and metabolic waste only during deep sleep</li>
+    </ul>
+  </div>
+
+  <div class="card study-card">
+    <div class="label">Supporting Evidence</div>
+    <h4>Gut-Brain Axis & Neuroinflammation</h4>
+    <p>A 2019 systematic review in <em>Frontiers in Neuroscience</em> found that gut microbiome dysbiosis is consistently associated with neuroinflammatory conditions including cognitive impairment, depression, and anxiety. LPS from gram-negative bacteria activates TLR4 receptors on microglia.</p>
+    <div class="cite">Cryan et al. (2019). "The Microbiota-Gut-Brain Axis." Physiological Reviews. <a href="https://doi.org/10.1152/physrev.00018.2018">doi:10.1152/physrev.00018.2018</a></div>
+  </div>
+
+  <div class="card opposing-card">
+    <div class="label">Opposing View</div>
+    <h4>"Brain fog isn't a real condition"</h4>
+    <p>Some clinicians dismiss brain fog as vague and non-diagnostic. They're technically right — it's not in the DSM or ICD. But that's a classification issue, not a biological one. The underlying mechanisms (neuroinflammation, nutrient deficiency, metabolic dysfunction) are well-documented. The symptom is real; the medical system just doesn't have a code for it.</p>
+  </div>
+
+  <h3>DHA & Brain Structure</h3>
+  <div class="card">
+    <h4>Why Your Brain Needs Fat <span class="confidence confidence-high">HIGH confidence</span></h4>
+    <p>DHA (docosahexaenoic acid) is the primary structural omega-3 in the brain and retina. It constitutes 40% of polyunsaturated fatty acids in the brain and 60% in the retina's photoreceptor outer segments.</p>
+    <ul>
+      <li><strong>Membrane fluidity</strong> — DHA's 6 double bonds create a uniquely flexible molecule, keeping cell membranes fluid so receptors and ion channels function properly</li>
+      <li><strong>Synaptogenesis</strong> — DHA promotes new synapse formation and dendritic branching</li>
+      <li><strong>Neuroprotectin D1</strong> — DHA metabolizes into NPD1, a potent anti-inflammatory mediator that protects neurons from oxidative stress</li>
+      <li><strong>BDNF production</strong> — DHA increases brain-derived neurotrophic factor, critical for learning and memory</li>
+    </ul>
+    <div class="cite">Bazinet & Layé (2014). "Polyunsaturated fatty acids and their metabolites in brain function and disease." Nature Reviews Neuroscience. <a href="https://doi.org/10.1038/nrn3820">doi:10.1038/nrn3820</a></div>
+  </div>
+
+  <h3>B12 & Myelin</h3>
+  <div class="card">
+    <h4>The Insulation Layer <span class="confidence confidence-high">HIGH confidence</span></h4>
+    <p>Vitamin B12 (cobalamin) is required for methylation reactions that produce the myelin sheath — the fatty insulation around nerve fibers. Without adequate B12, myelin degrades, signals leak, and nerve conduction slows. This is why B12 deficiency causes numbness, cognitive decline, and eventually irreversible neurological damage.</p>
+    <ul>
+      <li>B12 is a cofactor for methionine synthase → produces SAMe → methylation of myelin basic protein</li>
+      <li>Deficiency signs: fatigue, brain fog, tingling in extremities, balance problems</li>
+      <li>Vegans and elderly are most at risk (no animal B12, declining intrinsic factor)</li>
+      <li>Serum B12 can be "normal" while tissue levels are low — methylmalonic acid (MMA) is a better marker</li>
+    </ul>
+  </div>
+
+  <h3>Sleep & the Glymphatic System</h3>
+  <div class="card">
+    <h4>Your Brain's Waste Disposal <span class="confidence confidence-high">HIGH confidence</span></h4>
+    <p>The glymphatic system — discovered in 2012 — is the brain's dedicated waste clearance pathway. During deep sleep, brain cells shrink by ~60%, allowing cerebrospinal fluid to flush through interstitial spaces and clear metabolic waste including β-amyloid (Alzheimer's plaques) and tau proteins.</p>
+    <ul>
+      <li>Active primarily during deep (N3) sleep — reduced by 90% during wakefulness</li>
+      <li>Lateral sleeping position enhances clearance vs supine or prone</li>
+      <li>Chronic sleep deprivation → waste accumulation → neurodegeneration</li>
+      <li>Alcohol impairs glymphatic function even if total sleep time seems adequate</li>
+    </ul>
+    <div class="cite">Xie et al. (2013). "Sleep drives metabolite clearance from the adult brain." Science. <a href="https://doi.org/10.1126/science.1241224">doi:10.1126/science.1241224</a></div>
+  </div>
+
+  <div class="callout-honest">
+    <strong>🔬 Honest Take:</strong> Brain fog is one of the best-supported symptom clusters in functional medicine. The mechanisms (neuroinflammation, DHA deficiency, B12 depletion, gut-brain signaling) are individually well-researched. What's less clear is the relative contribution of each factor for any given person — it's usually multifactorial. Fix the gut, fix the sleep, fix the nutrients, and most brain fog resolves.
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- CHAPTER 2: GUT HEALTH -->
+<!-- ═══════════════════════════════════════════════════ -->
+<section id="ch2">
+  <div class="chapter-num">Chapter 2</div>
+  <h2><span class="icon">🦠</span> Gut Health &amp; Microbiome</h2>
+  <p class="section-desc">Your gut houses 70% of your immune system and produces most of your serotonin. The microbiome isn't just about digestion — it's command central.</p>
+
+  <h3>Butyrate & Short-Chain Fatty Acids</h3>
+  <div class="card">
+    <h4>The Fermentation Chain <span class="confidence confidence-high">HIGH confidence</span></h4>
+    <div class="flow">
+      <span class="flow-step">Dietary Fiber</span>
+      <span class="flow-arrow">→</span>
+      <span class="flow-step">Reaches Colon Undigested</span>
+      <span class="flow-arrow">→</span>
+      <span class="flow-step">Bacteria Ferment It</span>
+      <span class="flow-arrow">→</span>
+      <span class="flow-step">SCFAs Produced</span>
+    </div>
+    <table>
+      <tr><th>SCFA</th><th>% Production</th><th>Primary Role</th></tr>
+      <tr><td>Acetate</td><td>~60%</td><td>Energy substrate, cholesterol synthesis, appetite regulation</td></tr>
+      <tr><td>Propionate</td><td>~20-25%</td><td>Liver gluconeogenesis regulation, anti-inflammatory</td></tr>
+      <tr><td>Butyrate</td><td>~15-20%</td><td>Colonocyte fuel (70% of their energy), gut barrier integrity, HDAC inhibition</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <h4>What Butyrate Actually Does</h4>
+    <ul>
+      <li><strong>Feeds colonocytes</strong> — colon lining cells derive 70% of their energy from butyrate, not glucose</li>
+      <li><strong>Tight junction repair</strong> — upregulates claudin-1 and occludin expression → seals the gut barrier → prevents leaky gut</li>
+      <li><strong>NF-κB inhibition</strong> — blocks the master inflammatory transcription factor → reduces gut inflammation</li>
+      <li><strong>Regulatory T-cells</strong> — promotes Treg differentiation → immune tolerance → less autoimmunity</li>
+      <li><strong>HDAC inhibitor</strong> — epigenetic anti-cancer effects via histone deacetylase inhibition</li>
+      <li><strong>Mucus production</strong> — stimulates goblet cells to produce protective mucus layer</li>
+    </ul>
+    <div class="cite">Canani et al. (2011). "Potential beneficial effects of butyrate in intestinal and extraintestinal diseases." World J Gastroenterol. <a href="https://doi.org/10.3748/wjg.v17.i12.1519">doi:10.3748/wjg.v17.i12.1519</a></div>
+  </div>
+
+  <h3>The Fiber Paradox</h3>
+  <div class="comparison">
+    <div class="card truth-card">
+      <div class="label">When Fiber Works</div>
+      <h4>Healthy Microbiome ✓</h4>
+      <ul>
+        <li>Correct bacteria present (Roseburia, Faecalibacterium)</li>
+        <li>Butyrate produced efficiently</li>
+        <li>Gut barrier strengthened</li>
+        <li>Regular, easy bowel movements</li>
+        <li>Gas production minimal and well-tolerated</li>
+      </ul>
+    </div>
+    <div class="card myth-card">
+      <div class="label">When Fiber Hurts</div>
+      <h4>Dysbiotic Gut ✗</h4>
+      <ul>
+        <li>Wrong bacteria ferment fiber → excess gas, bloating</li>
+        <li>Can worsen SIBO (small intestinal bacterial overgrowth)</li>
+        <li>Insoluble fiber adds bulk → harder stools if motility is impaired</li>
+        <li>Feeds pathogenic bacteria alongside beneficial ones</li>
+        <li>Phytates and oxalates in high-fiber foods block mineral absorption</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card study-card">
+    <div class="label">Key Study</div>
+    <h4>Stopping Fiber Resolved Constipation <span class="confidence confidence-med">MEDIUM confidence</span></h4>
+    <p>A 2012 study by Ho et al. placed 63 constipated patients on a zero-fiber diet for 2 weeks, then allowed them to choose their fiber intake. Those who stayed on zero fiber had <strong>daily bowel movements</strong> (vs once every 6-7 days on high fiber). Bloating and pain also resolved completely.</p>
+    <div class="cite">Ho et al. (2012). "Stopping or reducing dietary fiber intake reduces constipation and its associated symptoms." World J Gastroenterol. <a href="https://doi.org/10.3748/wjg.v18.i33.4593">doi:10.3748/wjg.v18.i33.4593</a></div>
+  </div>
+
+  <div class="card opposing-card">
+    <div class="label">Opposing View</div>
+    <h4>"Fiber is universally beneficial" — Most dietary guidelines</h4>
+    <p>Large observational studies (Nurses' Health Study, EPIC) associate higher fiber intake with lower all-cause mortality, colorectal cancer risk, and cardiovascular disease. <strong>Why this may be misleading:</strong></p>
+    <ul>
+      <li><strong>Healthy user bias</strong> — people who eat fiber also exercise more, smoke less, drink less alcohol, eat less processed food</li>
+      <li><strong>Confounders</strong> — high fiber intake correlates with overall dietary quality, not just fiber itself</li>
+      <li><strong>Observational ≠ causal</strong> — these studies can't isolate fiber as the active variable</li>
+      <li><strong>Ignores individual microbiome state</strong> — what works for a healthy gut may harm a dysbiotic one</li>
+    </ul>
+  </div>
+
+  <div class="callout">
+    <strong>⚡ Reality:</strong> Fiber is a prebiotic — food for bacteria. If your bacteria are good, fiber helps. If they're bad, fiber makes everything worse. The mainstream "eat more fiber" advice skips the prerequisite: you need a functioning microbiome first. Raw dairy (kefir especially) supplies the bacteria directly — no fermentation gamble required.
+  </div>
+
+  <h3>Raw Dairy as Microbiome Builder</h3>
+  <div class="card">
+    <h4>Direct Inoculation vs Prebiotic Feeding <span class="confidence confidence-med">MEDIUM confidence</span></h4>
+    <ul>
+      <li><strong>Raw milk / kefir</strong> — contains live Lactobacillus, Bifidobacterium, Leuconostoc + 100+ other species</li>
+      <li>Directly populates the gut with beneficial bacteria — no fermentation dependency</li>
+      <li>Also supplies: butyrate (in butterfat directly), immunoglobulins (IgA), lactoferrin (antimicrobial)</li>
+      <li>Pasteurization kills all this — pasteurized milk is nutritionally different from raw milk</li>
+      <li><strong>Raw butter</strong> contains butyrate directly (3-4% by weight) — no microbial fermentation needed</li>
+    </ul>
+  </div>
+
+  <div class="card opposing-card">
+    <div class="label">Opposing View</div>
+    <h4>"Raw milk is dangerous" — FDA, CDC</h4>
+    <p>Regulators warn of Salmonella, E. coli O157:H7, Listeria, and Campylobacter contamination. <strong>Nuance:</strong></p>
+    <ul>
+      <li>Risk is real but context matters — properly handled raw milk from grass-fed, tested herds has an excellent safety record</li>
+      <li>A 2015 study found 0 confirmed outbreaks from legal raw milk dairies with testing protocols (most outbreaks traced to improper handling or illegal sales)</li>
+      <li>Raw milk contains its own antimicrobial system (lactoferrin, lactoperoxidase, IgA) that actively suppresses pathogenic bacteria — pasteurized milk lacks this self-protection</li>
+      <li>The dose-response matters: industrial CAFO milk is genuinely dangerous raw; small-farm grass-fed with testing is a different product</li>
+    </ul>
+  </div>
+
+  <h3>Leaky Gut (Intestinal Permeability)</h3>
+  <div class="card">
+    <h4>The Barrier Breakdown <span class="confidence confidence-high">HIGH confidence</span></h4>
+    <p>Your intestinal lining is one cell thick. Tight junction proteins (claudins, occludin, ZO-1) seal the gaps between enterocytes. When these junctions loosen:</p>
+    <ul>
+      <li>Undigested food proteins enter the bloodstream → immune system attacks them → food sensitivities</li>
+      <li>Bacterial LPS enters circulation → TLR4 activation → systemic inflammation</li>
+      <li>Triggers: gluten (zonulin release), NSAIDs, alcohol, chronic stress, dysbiosis</li>
+      <li>Measurable via lactulose/mannitol test or serum zonulin</li>
+    </ul>
+    <div class="cite">Fasano (2012). "Leaky Gut and Autoimmune Diseases." Clinical Reviews in Allergy & Immunology. <a href="https://doi.org/10.1007/s12016-011-8291-x">doi:10.1007/s12016-011-8291-x</a></div>
+  </div>
+
+  <div class="callout-honest">
+    <strong>🔬 Honest Take:</strong> Butyrate's role as colonocyte fuel and gut barrier maintainer is rock-solid science. The fiber paradox is real but under-studied — the Ho 2012 study is small (n=63) and unblinded. Larger RCTs are needed but unlikely to happen (no one profits from "eat less fiber"). The raw dairy microbiome evidence is promising but largely observational and from small studies. Confidence is high on mechanisms, medium on optimal strategies.
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- CHAPTER 3: TRANSPORTERS -->
+<!-- ═══════════════════════════════════════════════════ -->
+<section id="ch3">
+  <div class="chapter-num">Chapter 3</div>
+  <h2><span class="icon">🚚</span> Nutrient Absorption &amp; Transporters</h2>
+  <p class="section-desc">Your gut doesn't passively absorb nutrients. Almost every vitamin and mineral requires a specific transport protein — a molecular gate that decides what gets in.</p>
+
+  <div class="card">
+    <h4>The Complete Transporter Map <span class="confidence confidence-high">HIGH confidence</span></h4>
+    <table>
+      <tr><th>Nutrient</th><th>Transporter(s)</th><th>Where</th><th>Key Notes</th></tr>
+      <tr><td><strong>B12</strong></td><td>Intrinsic Factor → Cubilin/Amnionless</td><td>Stomach → Ileum</td><td>Requires stomach acid to release from food. IF made by parietal cells.</td></tr>
+      <tr><td><strong>Iron (heme)</strong></td><td>HCP1 (heme carrier protein 1)</td><td>Duodenum</td><td>15-35% absorbed. Direct pathway — no competition.</td></tr>
+      <tr><td><strong>Iron (non-heme)</strong></td><td>DMT1 (divalent metal transporter 1)</td><td>Duodenum</td><td>5-12% absorbed. Requires acid + vitamin C. Competes with zinc, copper, manganese.</td></tr>
+      <tr><td><strong>Zinc</strong></td><td>ZIP1-14 (importers), ZnT1-10 (exporters)</td><td>Duodenum/Jejunum</td><td>24+ different transporters. Competes with copper and iron.</td></tr>
+      <tr><td><strong>Copper</strong></td><td>CTR1 (in), ATP7A (export to blood)</td><td>Duodenum</td><td>Mega-dosing zinc depletes copper via shared transporter.</td></tr>
+      <tr><td><strong>Calcium</strong></td><td>TRPV6 (active), Calbindin (shuttle)</td><td>Duodenum</td><td>Vitamin D required to express TRPV6. Also passive paracellular throughout SI.</td></tr>
+      <tr><td><strong>Magnesium</strong></td><td>TRPM6, TRPM7</td><td>Ileum/Colon</td><td>Also passive paracellular. High calcium intake inhibits Mg absorption.</td></tr>
+      <tr><td><strong>Vitamin C</strong></td><td>SVCT1 (intestine), SVCT2 (tissues)</td><td>Ileum</td><td>Sodium-dependent. Saturates at ~200mg/dose — higher doses wasted.</td></tr>
+      <tr><td><strong>Folate (B9)</strong></td><td>PCFT (acid pH), RFC (neutral pH)</td><td>Jejunum</td><td>PCFT works in acidic environment — antacids may impair absorption.</td></tr>
+      <tr><td><strong>Vitamin A</strong></td><td>SR-BI, STRA6 (retinol)</td><td>Jejunum</td><td>Fat-soluble — requires bile + dietary fat → micelle formation.</td></tr>
+      <tr><td><strong>Vitamin D</strong></td><td>NPC1L1, SR-BI</td><td>Jejunum/Ileum</td><td>Absorbed with fat via micelles → chylomicrons.</td></tr>
+      <tr><td><strong>Vitamin E</strong></td><td>NPC1L1, SR-BI</td><td>Jejunum</td><td>α-TTP in liver selects α-tocopherol. Other forms mostly excreted.</td></tr>
+      <tr><td><strong>Vitamin K</strong></td><td>NPC1L1</td><td>Jejunum/Ileum</td><td>K1 from plants, K2 made by gut bacteria + animal foods.</td></tr>
+      <tr><td><strong>Glucose</strong></td><td>SGLT1 (active), GLUT2 (passive)</td><td>Small intestine</td><td>Sodium co-transport for SGLT1. GLUT2 recruited at high glucose loads.</td></tr>
+      <tr><td><strong>Amino Acids</strong></td><td>B0AT1, LAT1, PAT1, y+LAT1, etc.</td><td>Small intestine</td><td>15+ different transporter families. Each amino acid class has preferred routes.</td></tr>
+    </table>
+  </div>
+
+  <h3>Key Principles</h3>
+  <div class="card">
+    <h4>Competition</h4>
+    <p>Nutrients sharing the same transporter compete for binding sites. Taking high-dose zinc? You're depleting copper. Mega-dosing iron? You're blocking zinc. This is why single-nutrient supplements can create imbalances that whole foods don't.</p>
+    <ul>
+      <li><strong>Zinc vs Copper</strong> — zinc induces metallothionein, which traps copper → copper deficiency at >50mg/day zinc</li>
+      <li><strong>Iron vs Zinc</strong> — both use DMT1 → co-supplementation reduces absorption of both</li>
+      <li><strong>Calcium vs Magnesium</strong> — high calcium intake reduces Mg absorption at the intestinal level</li>
+      <li><strong>Calcium vs Iron</strong> — calcium inhibits both heme and non-heme iron absorption when taken together</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h4>Saturation <span class="confidence confidence-high">HIGH confidence</span></h4>
+    <p>Transporters have a maximum capacity. Beyond that, nutrients are excreted or simply not absorbed:</p>
+    <ul>
+      <li><strong>Vitamin C</strong> — SVCT1 saturates at ~200mg. A 1000mg supplement = ~200mg absorbed + 800mg in the toilet</li>
+      <li><strong>B12</strong> — only ~1.5mcg absorbed per dose via intrinsic factor + ~1% passive diffusion for amounts above that</li>
+      <li><strong>Calcium</strong> — absorption efficiency drops from ~45% at 200mg to ~15% at 1500mg per dose</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h4>Form Matters — Heme vs Non-Heme Iron <span class="confidence confidence-high">HIGH confidence</span></h4>
+    <table>
+      <tr><th>Property</th><th>Heme Iron (Animal)</th><th>Non-Heme Iron (Plant)</th></tr>
+      <tr><td>Absorption rate</td><td style="color: var(--green);">15-35%</td><td style="color: var(--accent2);">2-12%</td></tr>
+      <tr><td>Transporter</td><td>HCP1 (dedicated)</td><td>DMT1 (shared with Zn, Cu, Mn)</td></tr>
+      <tr><td>Affected by inhibitors</td><td>Minimally</td><td>Heavily (phytates, polyphenols, calcium, tannins)</td></tr>
+      <tr><td>Requires vitamin C</td><td>No</td><td>Yes (converts Fe³⁺ to Fe²⁺ for DMT1)</td></tr>
+      <tr><td>Bioavailability</td><td>Consistent regardless of meal</td><td>Varies 5-20x depending on co-factors</td></tr>
+    </table>
+    <p style="margin-top: 1rem;">This is why vegans need 1.8x the RDA for iron — and even then, many remain deficient. Spinach has iron, but the oxalates in the same leaf block most of it.</p>
+  </div>
+
+  <div class="card">
+    <h4>Stomach Acid Is Critical <span class="confidence confidence-high">HIGH confidence</span></h4>
+    <ul>
+      <li><strong>Pepsin activation</strong> — requires pH ≤ 2 to cleave proteins and release bound B12, iron, zinc, calcium</li>
+      <li><strong>Intrinsic factor production</strong> — parietal cells that make HCl also make IF for B12 absorption</li>
+      <li><strong>PPIs (Prilosec, Nexium)</strong> raise stomach pH → impair B12, iron, calcium, magnesium absorption</li>
+      <li><strong>Low stomach acid (hypochlorhydria)</strong> is often MISDIAGNOSED as high acid → patients put on PPIs → nutrient depletion cascade</li>
+      <li>Natural HCl support: raw ACV before meals, betaine HCl supplements, zinc (required for HCl production)</li>
+    </ul>
+  </div>
+
+  <div class="callout-honest">
+    <strong>🔬 Honest Take:</strong> Transporter biology is hard biochemistry — these mechanisms are well-characterized. The clinical implications (competition, saturation, form dependency) are solidly supported. Where it gets speculative: optimal timing strategies, exact dose thresholds for individuals, and whether whole-food matrices provide unknown co-factors beyond what we can measure. The safest bet is always whole food over isolated supplements.
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- CHAPTER 4: FATS -->
+<!-- ═══════════════════════════════════════════════════ -->
+<section id="ch4">
+  <div class="chapter-num">Chapter 4</div>
+  <h2><span class="icon">🧈</span> Fats — The Complete Guide</h2>
+  <p class="section-desc">Fat isn't the enemy. The wrong fat, in the wrong form, at the wrong temperature — that's the enemy.</p>
+
+  <div class="card">
+    <h4>Three Fat Categories <span class="confidence confidence-high">HIGH confidence</span></h4>
+    <table>
+      <tr><th>Type</th><th>Double Bonds</th><th>Stability</th><th>Role</th><th>Best Sources</th></tr>
+      <tr><td><strong>Saturated</strong></td><td>0</td><td style="color: var(--green);">Very stable ✓</td><td>Cell membranes, hormones, energy, brain structure</td><td>Butter, tallow, coconut oil, dairy fat</td></tr>
+      <tr><td><strong>Monounsaturated</strong></td><td>1</td><td style="color: var(--yellow);">Moderately stable △</td><td>Cell membranes, anti-inflammatory</td><td>Olive oil, avocado, macadamia nuts</td></tr>
+      <tr><td><strong>Polyunsaturated</strong></td><td>2+</td><td style="color: var(--accent2);">Very fragile ✗</td><td>Signaling molecules, brain/eye structure</td><td>Fish, seeds, nuts (handle carefully)</td></tr>
+    </table>
+    <p style="margin-top: 1rem; font-size: 0.88rem; color: var(--muted);">Stability = resistance to oxidation from heat, light, and oxygen. More double bonds = more reactive sites = more vulnerable.</p>
+  </div>
+
+  <h3>Essential PUFAs</h3>
+  <div class="card">
+    <h4>The Ones You Actually Need <span class="confidence confidence-high">HIGH confidence</span></h4>
+    <table>
+      <tr><th>PUFA</th><th>Class</th><th>Role</th><th>Best Source</th></tr>
+      <tr><td><strong>EPA</strong></td><td>Omega-3</td><td>Anti-inflammatory signaling (resolvins), blood vessel health, mood regulation</td><td>Fatty fish, fish oil</td></tr>
+      <tr><td><strong>DHA</strong></td><td>Omega-3</td><td>Brain structure (60% of brain PUFAs), retina (60%), nervous system membranes</td><td>Fatty fish, fish eggs, brain</td></tr>
+      <tr><td><strong>Arachidonic acid (AA)</strong></td><td>Omega-6</td><td>Immune signaling (prostaglandins), brain development, muscle repair</td><td>Eggs, organ meats, red meat</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <h4>The Omega-6 : Omega-3 Ratio <span class="confidence confidence-high">HIGH confidence</span></h4>
+    <p><strong>Ideal:</strong> 1:1 to 4:1 (what humans evolved on)</p>
+    <p><strong>Modern diet:</strong> 15:1 to 25:1 (due to seed oils)</p>
+    <p style="margin-top: 0.75rem;">Omega-6 drives pro-inflammatory pathways (via AA → COX-2 → prostaglandin E2). Omega-3 drives anti-inflammatory resolution pathways (via EPA → resolvins, DHA → protectins). When the ratio is wildly skewed toward omega-6, inflammation never resolves — it becomes chronic.</p>
+    <div class="cite">Simopoulos (2002). "The importance of the ratio of omega-6/omega-3 essential fatty acids." Biomedicine & Pharmacotherapy. <a href="https://doi.org/10.1016/S0753-3322(02)00253-6">doi:10.1016/S0753-3322(02)00253-6</a></div>
+  </div>
+
+  <h3>ALA → EPA → DHA Conversion</h3>
+  <div class="card">
+    <h4>The Plant Omega-3 Trap <span class="confidence confidence-high">HIGH confidence</span></h4>
+    <div class="flow">
+      <span class="flow-step">ALA (plant ω-3)</span>
+      <span class="flow-arrow">→</span>
+      <span class="flow-step">SDA</span>
+      <span class="flow-arrow">→</span>
+      <span class="flow-step">ETA</span>
+      <span class="flow-arrow">→</span>
+      <span class="flow-step">EPA</span>
+      <span class="flow-arrow">→</span>
+      <span class="flow-step">DPA</span>
+      <span class="flow-arrow">→</span>
+      <span class="flow-step">DHA</span>
+    </div>
+    <p style="margin-top: 1rem;"><strong>ALA → EPA:</strong></p>
+    <div class="percent-bar"><div class="percent-fill" style="width: 8%; background: var(--yellow);"></div></div>
+    <p style="font-size: 0.85rem; color: var(--muted);">~5-10% (women slightly higher due to estrogen upregulation of desaturases)</p>
+    <p style="margin-top: 0.75rem;"><strong>ALA → DHA:</strong></p>
+    <div class="percent-bar"><div class="percent-fill" style="width: 2.5%; background: var(--accent2);"></div></div>
+    <p style="font-size: 0.85rem; color: var(--muted);">~1-3% (essentially negligible for meeting brain/retina DHA needs)</p>
+    <ul style="margin-top: 1rem;">
+      <li><strong>Bottleneck:</strong> Delta-6 desaturase enzyme — shared with omega-6 conversion pathway</li>
+      <li>High omega-6 intake (seed oils) further reduces already-poor conversion</li>
+      <li>Insulin resistance, aging, and genetic variants (FADS1/FADS2) impair it further</li>
+      <li><strong>Practical meaning:</strong> You'd need ~30g ALA to get the DHA in one serving of salmon</li>
+    </ul>
+    <div class="cite">Burdge & Calder (2005). "Conversion of alpha-linolenic acid to longer-chain polyunsaturated fatty acids in human adults." Reproduction Nutrition Development. <a href="https://doi.org/10.1051/rnd:2005047">doi:10.1051/rnd:2005047</a></div>
+  </div>
+
+  <h3>PUFA Oxidation — The Real Danger</h3>
+  <div class="card myth-card">
+    <div class="label">Why Seed Oils Are Toxic</div>
+    <h4>Lipid Peroxidation Chemistry <span class="confidence confidence-high">HIGH confidence</span></h4>
+    <p>PUFAs have multiple double bonds — each is a site vulnerable to oxidative attack. When exposed to heat, light, or oxygen:</p>
+    <ul>
+      <li><strong>Step 1:</strong> Free radical abstracts hydrogen from double bond → lipid radical formed</li>
+      <li><strong>Step 2:</strong> Lipid radical reacts with O₂ → lipid peroxyl radical → chain reaction begins</li>
+      <li><strong>Step 3:</strong> Produces toxic aldehydes: <strong>4-HNE</strong> (4-hydroxynonenal), <strong>MDA</strong> (malondialdehyde)</li>
+      <li><strong>Step 4:</strong> Aldehydes damage DNA (mutagenic), cross-link proteins, destroy cell membranes</li>
+      <li><strong>Step 5:</strong> Forms ALEs (advanced lipoxidation end-products) → accelerated aging</li>
+      <li><strong>Step 6:</strong> Oxidized LDL → foam cells → atherosclerotic plaques</li>
+    </ul>
+    <p style="margin-top: 1rem;">Seed oils (canola, soy, sunflower, corn) are 50-75% PUFA, extracted with hexane solvent at high temperatures, deodorized (more heat) — <strong>they're already oxidized before you buy them.</strong></p>
+    <div class="cite">Esterbauer et al. (1991). "Chemistry and biochemistry of 4-hydroxynonenal, malonaldehyde and related aldehydes." Free Radical Biology and Medicine. <a href="https://doi.org/10.1016/0891-5849(91)90192-6">doi:10.1016/0891-5849(91)90192-6</a></div>
+  </div>
+
+  <h3>Cooking Red Meat & PUFAs</h3>
+  <div class="card">
+    <h4>Is Cooking Steak Dangerous? <span class="confidence confidence-high">HIGH confidence</span></h4>
+    <p>Red meat fat composition (approximate):</p>
+    <table>
+      <tr><th>Fat Type</th><th>%</th><th>Oxidation Risk from Cooking</th></tr>
+      <tr><td>Saturated</td><td>~50%</td><td style="color: var(--green);">Minimal — no double bonds to oxidize</td></tr>
+      <tr><td>Monounsaturated</td><td>~42%</td><td style="color: var(--yellow);">Low — one double bond, relatively stable</td></tr>
+      <tr><td>Polyunsaturated</td><td>~4-5%</td><td style="color: var(--accent2);">Some — but tiny fraction of total fat</td></tr>
+    </table>
+    <p style="margin-top: 1rem;"><strong>Bottom line:</strong> Cooking a steak oxidizes a tiny amount of PUFA — orders of magnitude less than frying anything in soybean oil. A medium-rare steak barely touches the small PUFA content. The dose makes the poison. Raw is technically optimal; cooked red meat is not the problem.</p>
+  </div>
+
+  <h3>Maillard Reaction vs Lipid Oxidation</h3>
+  <div class="card">
+    <h4>Two Different Processes <span class="confidence confidence-high">HIGH confidence</span></h4>
+    <table>
+      <tr><th>Process</th><th>What Reacts</th><th>Products</th><th>Health Impact</th></tr>
+      <tr><td><strong>Lipid Oxidation</strong></td><td>PUFAs + heat/O₂</td><td>Aldehydes (4-HNE, MDA), peroxides</td><td>Mutagenic, inflammatory, atherogenic</td></tr>
+      <tr><td><strong>Maillard Reaction</strong></td><td>Amino acids + sugars at >140°C</td><td>Melanoidins (browning), flavor compounds, AGEs</td><td>AGEs accumulate, cross-link collagen, promote inflammation</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <h4>AGEs (Advanced Glycation End-Products) <span class="confidence confidence-med">MEDIUM confidence</span></h4>
+    <ul>
+      <li><strong>What:</strong> Proteins or lipids glycated (bonded with sugars) non-enzymatically — accelerated by high heat</li>
+      <li><strong>Where:</strong> Form during grilling, roasting, frying. Highest in browned/charred food</li>
+      <li><strong>Damage:</strong> Cross-link collagen (stiff joints, wrinkled skin), activate RAGE receptors (inflammation), impair blood vessel elasticity</li>
+      <li><strong>Your body handles some:</strong> ~10% of dietary AGEs are absorbed; kidneys excrete most. But chronic high intake overwhelms clearance</li>
+      <li><strong>Minimization:</strong> Cook at lower temperatures, shorter times, with moisture (stewing > grilling). Rare > well-done.</li>
+    </ul>
+  </div>
+
+  <div class="card opposing-card">
+    <div class="label">Opposing View</div>
+    <h4>"The anti-seed-oil movement is unscientific"</h4>
+    <p>Some researchers argue that linoleic acid (LA) has been unfairly demonized, pointing to RCTs where replacing saturated fat with LA reduced LDL cholesterol. <strong>Why this is incomplete:</strong></p>
+    <ul>
+      <li>LDL reduction ≠ cardiovascular benefit. The Sydney Diet Heart Study and Minnesota Coronary Experiment both showed LA replacement <em>lowered</em> LDL but <em>increased</em> mortality</li>
+      <li>These trials used fresh, carefully handled oils — not the repeatedly heated, hexane-extracted oils consumed in real life</li>
+      <li>The oxidation question is separate from the total-LA question. Even if LA at controlled intake isn't harmful, oxidized LA definitely is</li>
+      <li>Tissue accumulation of LA takes 2+ years to clear — short-term trials miss long-term effects</li>
+    </ul>
+    <div class="cite">Ramsden et al. (2016). "Re-evaluation of the traditional diet-heart hypothesis." BMJ. <a href="https://doi.org/10.1136/bmj.e8707">doi:10.1136/bmj.e8707</a></div>
+  </div>
+
+  <div class="card truth-card">
+    <div class="label">Safe PUFA Rules</div>
+    <h4>How to Handle PUFAs</h4>
+    <ul>
+      <li>✓ <strong>Never heat</strong> PUFA-rich oils — cook only with saturated fats (butter, tallow, coconut oil)</li>
+      <li>✓ <strong>Raw/cold sources</strong> — fresh fish, fish eggs, cold-pressed oils kept refrigerated in dark glass</li>
+      <li>✓ <strong>Minimize total PUFA</strong> — your body needs very small amounts (1-2% of calories)</li>
+      <li>✓ <strong>Prioritize EPA/DHA</strong> over linoleic acid</li>
+      <li>✓ <strong>Fresh is non-negotiable</strong> — rancid fish oil is worse than no fish oil</li>
+      <li>✓ <strong>Vitamin E</strong> — the body's primary PUFA protector in vivo. Eat alongside PUFAs</li>
+      <li>✗ <strong>Never</strong> consume reheated cooking oil (restaurants reuse fryer oil for days)</li>
+    </ul>
+  </div>
+
+  <div class="callout-honest">
+    <strong>🔬 Honest Take:</strong> The lipid peroxidation chemistry is solid — this is biochemistry, not speculation. The seed oil concern is mechanistically well-grounded. Where uncertainty remains: what level of total PUFA intake is optimal? Is unoxidized LA harmful or just unnecessary? We don't have definitive RCTs (they'd take 10+ years). Our best estimate: minimize seed oils, get EPA/DHA from fresh animal sources, cook with saturated fats, and don't stress about the 4% PUFA in a cooked steak.
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- CHAPTER 5: ORGAN MEATS -->
+<!-- ═══════════════════════════════════════════════════ -->
+<section id="ch5">
+  <div class="chapter-num">Chapter 5</div>
+  <h2><span class="icon">🥩</span> Organ Meats — Nature's Multivitamins</h2>
+  <p class="section-desc">Organs are the original superfoods. Every traditional culture prized them. Modern culture forgot.</p>
+
+  <div class="card">
+    <h4>Beef Liver Nutrient Profile (per 100g) <span class="confidence confidence-high">HIGH confidence</span></h4>
+    <table>
+      <tr><th>Nutrient</th><th>Amount</th><th>% DV</th><th>Rating</th></tr>
+      <tr><td>Vitamin A (retinol)</td><td>16,899 IU</td><td>~560%</td><td style="color: var(--green);">✦ Exceptional</td></tr>
+      <tr><td>Vitamin B12</td><td>59.3 mcg</td><td>~2,470%</td><td style="color: var(--green);">✦ Exceptional</td></tr>
+      <tr><td>Riboflavin (B2)</td><td>2.76 mg</td><td>~212%</td><td style="color: var(--green);">✦ Excellent</td></tr>
+      <tr><td>Folate (B9)</td><td>290 mcg</td><td>~73%</td><td style="color: var(--green);">✦ Excellent</td></tr>
+      <tr><td>Niacin (B3)</td><td>13.2 mg</td><td>~83%</td><td style="color: var(--green);">✦ Excellent</td></tr>
+      <tr><td>Copper</td><td>9.8 mg</td><td>~1,089%</td><td style="color: var(--green);">✦ Exceptional</td></tr>
+      <tr><td>Iron (heme)</td><td>6.5 mg</td><td>~36%</td><td style="color: var(--green);">✦ Excellent</td></tr>
+      <tr><td>Choline</td><td>333 mg</td><td>~61%</td><td style="color: var(--green);">✦ Excellent</td></tr>
+      <tr><td>CoQ10</td><td>3.9 mg</td><td>—</td><td style="color: var(--green);">✦ Best food source</td></tr>
+      <tr><td>Selenium</td><td>39.7 mcg</td><td>~72%</td><td style="color: var(--green);">✦ Excellent</td></tr>
+      <tr><td>Vitamin C</td><td>1.3 mg</td><td>~1.4%</td><td style="color: var(--accent2);">✗ Very low</td></tr>
+      <tr><td>Vitamin D</td><td>~16 IU</td><td>~3%</td><td style="color: var(--accent2);">✗ Minimal</td></tr>
+      <tr><td>Vitamin E</td><td>0.38 mg</td><td>~3%</td><td style="color: var(--accent2);">✗ Low</td></tr>
+      <tr><td>DHA/EPA</td><td>minimal</td><td>—</td><td style="color: var(--yellow);">△ Low</td></tr>
+    </table>
+    <div class="cite">USDA FoodData Central. "Beef, liver, cooked, braised." NDB #13325.</div>
+  </div>
+
+  <div class="card">
+    <h4>Other Organ Superstars</h4>
+    <table>
+      <tr><th>Organ</th><th>Standout Nutrients</th><th>Special Properties</th></tr>
+      <tr><td><strong>Heart</strong></td><td>CoQ10 (highest), B12, iron, zinc</td><td>CoQ10 for mitochondrial energy production — 3x more than liver</td></tr>
+      <tr><td><strong>Brain</strong></td><td>DHA, cholesterol, phospholipids</td><td>Richest food source of DHA. Also provides phosphatidylserine (PS)</td></tr>
+      <tr><td><strong>Kidney</strong></td><td>B12, selenium, DAO enzyme</td><td>Contains diamine oxidase — breaks down histamine. Useful for histamine intolerance</td></tr>
+      <tr><td><strong>Bone Marrow</strong></td><td>Collagen, glycine, CLA, alkylglycerols</td><td>Immune support (alkylglycerols), joint/skin health (collagen), gut healing (glycine)</td></tr>
+      <tr><td><strong>Thymus (Sweetbreads)</strong></td><td>Thymosin, thymulin</td><td>Immune-supporting peptides — traditionally used for immune modulation</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <h4>What Liver Doesn't Cover</h4>
+    <ul>
+      <li><strong>Vitamin C</strong> — very low in cooked liver (cooking destroys it). Raw liver or adrenal glands contain more. Fresh fruit/veg needed.</li>
+      <li><strong>Vitamin D</strong> — minimal unless cod liver specifically. Need sunlight or cod liver oil.</li>
+      <li><strong>Vitamin E</strong> — low. Need nuts, seeds, or grass-fed tallow.</li>
+      <li><strong>DHA/EPA</strong> — low unless brain or cod liver. Need fatty fish.</li>
+      <li><strong>Magnesium</strong> — not especially high. Need other sources.</li>
+    </ul>
+  </div>
+
+  <div class="callout">
+    <strong>⚡ Complete diet formula:</strong> Liver (2-4x/week) + sunlight (vitamin D) + fatty fish or fish eggs (DHA/EPA) + raw dairy (microbiome + calcium + butyrate) + some raw plant matter (vitamin C) = virtually every nutrient in bioavailable form. This is what traditional cultures worldwide converged on independently.
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- CHAPTER 6: VITAMINS -->
+<!-- ═══════════════════════════════════════════════════ -->
+<section id="ch6">
+  <div class="chapter-num">Chapter 6</div>
+  <h2><span class="icon">💊</span> Vitamins Deep Dive</h2>
+  <p class="section-desc">Not all vitamins are created equal. The form, source, and context determine whether they help or harm.</p>
+
+  <h3>Vitamin D: D2 vs D3</h3>
+  <div class="comparison">
+    <div class="card myth-card">
+      <div class="label">D2 — Ergocalciferol</div>
+      <h4>Plant/Fungal Form</h4>
+      <ul>
+        <li>Found in UV-exposed mushrooms, fortified foods</li>
+        <li>Does convert to 25(OH)D in liver — but less efficiently</li>
+        <li>Shorter half-life (~15 days vs ~25 days for D3)</li>
+        <li>87% less potent at raising blood levels per unit</li>
+        <li>May actually decrease D3 levels when supplemented</li>
+        <li>Not what your body naturally produces</li>
+      </ul>
+    </div>
+    <div class="card truth-card">
+      <div class="label">D3 — Cholecalciferol</div>
+      <h4>Animal/Sun Form</h4>
+      <ul>
+        <li>Made by your skin from UVB + 7-dehydrocholesterol</li>
+        <li>Found in fatty fish, egg yolks, cod liver oil</li>
+        <li>87% more effective at raising serum 25(OH)D</li>
+        <li>Longer half-life, better tissue distribution</li>
+        <li>Stored in adipose tissue for winter use</li>
+        <li>The form your body evolved with</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card">
+    <h4>Vitamin D Synthesis Pathway <span class="confidence confidence-high">HIGH confidence</span></h4>
+    <div class="flow">
+      <span class="flow-step">UVB hits skin</span>
+      <span class="flow-arrow">→</span>
+      <span class="flow-step">7-DHC → Pre-D3</span>
+      <span class="flow-arrow">→</span>
+      <span class="flow-step">D3 (cholecalciferol)</span>
+      <span class="flow-arrow">→</span>
+      <span class="flow-step">Liver: 25(OH)D</span>
+      <span class="flow-arrow">→</span>
+      <span class="flow-step">Kidney: 1,25(OH)₂D [active]</span>
+    </div>
+    <p style="margin-top: 1rem; color: var(--muted); font-size: 0.9rem;">D2 follows a similar pathway but produces 25(OH)D2, which the body handles less efficiently. D2 may also compete with D3 for 25-hydroxylase binding, potentially reducing D3 activation.</p>
+    <div class="cite">Heaney et al. (2011). "Vitamin D3 is more potent than vitamin D2 in humans." J Clin Endocrinol Metab. <a href="https://doi.org/10.1210/jc.2010-2230">doi:10.1210/jc.2010-2230</a></div>
+  </div>
+
+  <h3>Fat-Soluble Vitamins (A, D, E, K)</h3>
+  <div class="card">
+    <h4>All Need Dietary Fat <span class="confidence confidence-high">HIGH confidence</span></h4>
+    <p>Fat-soluble vitamins are absorbed through the same pathway as dietary fat:</p>
+    <div class="flow">
+      <span class="flow-step">Bile emulsifies fat</span>
+      <span class="flow-arrow">→</span>
+      <span class="flow-step">Micelle formation</span>
+      <span class="flow-arrow">→</span>
+      <span class="flow-step">Vitamins dissolve in micelles</span>
+      <span class="flow-arrow">→</span>
+      <span class="flow-step">Absorbed into enterocytes</span>
+      <span class="flow-arrow">→</span>
+      <span class="flow-step">Packaged into chylomicrons</span>
+      <span class="flow-arrow">→</span>
+      <span class="flow-step">Enter lymphatic system → blood</span>
+    </div>
+    <p style="margin-top: 1rem;"><strong>Without adequate dietary fat</strong> (or with bile insufficiency), you can eat all the vitamins you want and they'll pass right through you. Low-fat diets are a recipe for fat-soluble vitamin deficiency.</p>
+  </div>
+
+  <div class="card">
+    <h4>Vitamin K2 — The Calcium Director <span class="confidence confidence-med">MEDIUM confidence</span></h4>
+    <ul>
+      <li><strong>K2 activates</strong> osteocalcin (puts calcium INTO bones) and matrix GLA protein (keeps calcium OUT OF arteries)</li>
+      <li><strong>Without K2:</strong> calcium supplementation can deposit in arteries instead of bones — calcification/atherosclerosis</li>
+      <li><strong>MK-4</strong> (animal form) — rapidly absorbed, short half-life, found in grass-fed butter/organs. Converts from K1 in some tissues</li>
+      <li><strong>MK-7</strong> (bacterial form) — longer half-life, found in natto, aged cheese. Better at sustaining blood levels</li>
+      <li><strong>Synergy:</strong> D3 + K2 work as a pair. D3 increases calcium absorption; K2 directs where it goes.</li>
+    </ul>
+    <div class="cite">Geleijnse et al. (2004). "Dietary Intake of Menaquinone Is Associated with a Reduced Risk of Coronary Heart Disease: The Rotterdam Study." J Nutr. <a href="https://doi.org/10.1093/jn/134.11.3100">doi:10.1093/jn/134.11.3100</a></div>
+  </div>
+
+  <h3>Synthetic vs Food-Form Vitamins</h3>
+  <div class="card">
+    <h4>Not All Supplements Are Equal <span class="confidence confidence-med">MEDIUM confidence</span></h4>
+    <table>
+      <tr><th>Vitamin</th><th>Synthetic Form</th><th>Food Form</th><th>Issue</th></tr>
+      <tr><td>Vitamin E</td><td>dl-alpha-tocopherol</td><td>d-alpha-tocopherol + mixed tocopherols</td><td>Synthetic is racemic (50% wrong-handed). Body preferentially excretes the synthetic form.</td></tr>
+      <tr><td>Folate</td><td>Folic acid</td><td>5-MTHF (methylfolate)</td><td>~40% of people have MTHFR variants that poorly convert folic acid → can accumulate unmetabolized in blood.</td></tr>
+      <tr><td>Vitamin A</td><td>Beta-carotene</td><td>Retinol (preformed)</td><td>Beta-carotene conversion to retinol is 12:1 to 28:1. Some people are poor converters (BCO1 gene variant).</td></tr>
+      <tr><td>B12</td><td>Cyanocobalamin</td><td>Methylcobalamin / Adenosylcobalamin</td><td>Cyano- has a cyanide molecule attached. Needs conversion. Methyl/adenosyl are bioactive forms.</td></tr>
+    </table>
+    <p style="margin-top: 1rem; color: var(--muted);">Food-form vitamins come with co-factors, enzymes, and transport molecules that synthetic pills lack. This is why whole food > supplements for most people.</p>
+  </div>
+
+  <div class="callout-honest">
+    <strong>🔬 Honest Take:</strong> D3 > D2 is well-established. The K2 + D3 synergy has strong mechanistic support and good observational data, though large RCTs are limited. The synthetic vs food-form argument is strongest for folate (MTHFR variants are real and common) and vitamin E (stereochemistry matters). For most other vitamins, synthetic forms work "well enough" — but food forms are universally superior and come without the guesswork.
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- CHAPTER 7: EYESIGHT -->
+<!-- ═══════════════════════════════════════════════════ -->
+<section id="ch7">
+  <div class="chapter-num">Chapter 7</div>
+  <h2><span class="icon">👁️</span> Eyesight &amp; Myopia</h2>
+  <p class="section-desc">The myopia epidemic is the strongest evidence that environment trumps genetics in modern disease.</p>
+
+  <div class="card myth-card">
+    <div class="label">Common Belief</div>
+    <h4>"Bad eyesight is genetic" <span class="confidence confidence-high">HIGH confidence it's wrong</span></h4>
+    <p>If myopia were primarily genetic:</p>
+    <ul>
+      <li>Rates would be stable across generations. Instead: 10-15% → 40-50% in Western countries in <strong>one generation</strong></li>
+      <li>East Asia: 80-90% of young adults are myopic (up from 20-30% in grandparents' generation)</li>
+      <li>Indigenous populations worldwide have near-zero myopia — until they adopt modern lifestyles</li>
+      <li>DNA doesn't mutate in 30 years. <strong>This is an environmental epidemic, not a genetic one.</strong></li>
+    </ul>
+  </div>
+
+  <div class="card truth-card">
+    <div class="label">Actual Causes</div>
+    <h4>Environment > Genetics</h4>
+    <ul>
+      <li><strong>Lack of outdoor time / sunlight</strong> — bright light triggers retinal dopamine release, which inhibits axial elongation of the eyeball (the physical change that causes myopia). 2+ hours/day outdoors dramatically reduces risk.</li>
+      <li><strong>Excessive near-work</strong> — screens, books, phones at 20-30cm signal the eye to elongate for near focus (accommodative lag theory)</li>
+      <li><strong>Nutritional deficiency</strong> — DHA (retina is 50% DHA), vitamin A (rhodopsin synthesis), zinc (retina metabolism)</li>
+      <li><strong>Peripheral defocus</strong> — corrective lenses that don't address peripheral defocus may accelerate progression</li>
+    </ul>
+  </div>
+
+  <div class="card study-card">
+    <div class="label">Key Studies</div>
+    <h4>The Evidence Is Overwhelming</h4>
+    <table>
+      <tr><th>Study</th><th>Finding</th></tr>
+      <tr><td>Sydney Myopia Study (2008)</td><td>Children spending >2h/day outdoors had 1/4 the myopia rate, regardless of near-work hours. Outdoor time was the strongest predictor — even in genetically predisposed children.</td></tr>
+      <tr><td>Taiwan school intervention (2013)</td><td>80 min/day mandatory outdoor recess → <strong>50% reduction</strong> in new myopia cases over 1 year.</td></tr>
+      <tr><td>Inuit transition (Young et al. 1969)</td><td>Myopia rose from ~2% to ~60% in one generation after mandatory schooling began. Same gene pool, different environment.</td></tr>
+      <tr><td>Guangzhou twin study (2015)</td><td>Among identical twins (same DNA), outdoor time explained more variance in refractive error than genetic factors.</td></tr>
+      <tr><td>Chinese rural vs urban (He et al. 2015)</td><td>Rural children (more outdoor time) had significantly lower myopia than genetically similar urban peers.</td></tr>
+    </table>
+    <div class="cite">Rose et al. (2008). "Outdoor activity reduces the prevalence of myopia in children." Ophthalmology. <a href="https://doi.org/10.1016/j.ophtha.2007.12.019">doi:10.1016/j.ophtha.2007.12.019</a></div>
+  </div>
+
+  <div class="card opposing-card">
+    <div class="label">Opposing View</div>
+    <h4>"Myopia is largely heritable" — GWAS studies</h4>
+    <p>Genome-wide association studies have identified 160+ genetic loci associated with myopia. Twin studies suggest 60-80% heritability. <strong>Why this is misleading:</strong></p>
+    <ul>
+      <li><strong>Heritability ≠ destiny.</strong> Heritability measures variance within a population under current conditions. If everyone shares the same harmful environment, genetic differences explain the remaining variation — but the ENVIRONMENT is still the primary cause.</li>
+      <li><strong>Analogy:</strong> In a population where everyone smokes, lung cancer would appear "highly heritable" because genetic differences in detox enzymes would explain who gets it. That doesn't mean smoking isn't the cause.</li>
+      <li><strong>The timeline disproves pure genetics.</strong> 400% increase in one generation = environment. Genetics loads the susceptibility; modern lifestyle pulls the trigger.</li>
+    </ul>
+  </div>
+
+  <div class="callout">
+    <strong>⚡ Genetics loads the gun, environment pulls the trigger.</strong> Some people are more genetically susceptible. But the explosive increase in myopia is 100% environmental — lack of outdoor time, excessive near-work, and nutritional deficiency. Get outside, eat DHA, take breaks from screens, and give your eyes distance viewing time.
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- CHAPTER 8: MILK & GROWTH -->
+<!-- ═══════════════════════════════════════════════════ -->
+<section id="ch8">
+  <div class="chapter-num">Chapter 8</div>
+  <h2><span class="icon">🥛</span> Milk &amp; Growth</h2>
+  <p class="section-desc">Milk is a growth fluid designed by evolution. The question isn't whether it works — it's how to use it optimally.</p>
+
+  <div class="card">
+    <h4>IGF-1 Mechanism <span class="confidence confidence-high">HIGH confidence</span></h4>
+    <p>Milk doesn't contain meaningful growth hormone (bovine GH is species-specific and destroyed by stomach acid). What it does:</p>
+    <ul>
+      <li><strong>Stimulates endogenous IGF-1 production</strong> — milk's amino acid profile (particularly BCAAs and whey protein) signals the liver to produce more IGF-1</li>
+      <li><strong>IGF-1 (insulin-like growth factor 1)</strong> — the primary mediator of growth hormone's effects on bone and tissue growth</li>
+      <li>Each additional cup of milk → approximately +0.4cm average height increase (observational data)</li>
+      <li>Effect is synergistic with adequate sleep (GH peaks 1-2h after sleep onset) and exercise</li>
+    </ul>
+    <div class="cite">Hoppe et al. (2006). "Cow's milk and linear growth in industrialized and developing countries." Annu Rev Nutr. <a href="https://doi.org/10.1146/annurev.nutr.26.010506.103757">doi:10.1146/annurev.nutr.26.010506.103757</a></div>
+  </div>
+
+  <div class="card">
+    <h4>Growth Hormone & Sleep <span class="confidence confidence-high">HIGH confidence</span></h4>
+    <ul>
+      <li><strong>GH secretion pattern:</strong> largest pulse occurs 1-2 hours after sleep onset, during deep (N3) sleep</li>
+      <li>Fasting enhances GH secretion — insulin suppresses it</li>
+      <li>Exercise (especially high-intensity/resistance) acutely increases GH</li>
+      <li><strong>Optimal timing:</strong> Drink milk 2-3 hours before bed → amino acids available for IGF-1 → GH surge during sleep → maximum growth stimulus</li>
+      <li>Growth plates (epiphyseal plates) close at different ages — wrist X-ray can confirm if they're still open</li>
+    </ul>
+  </div>
+
+  <h3>A2 vs A1 Casein</h3>
+  <div class="card">
+    <h4>The BCM-7 Question <span class="confidence confidence-med">MEDIUM confidence</span></h4>
+    <table>
+      <tr><th>Property</th><th>A1 Casein</th><th>A2 Casein</th></tr>
+      <tr><td>Produces BCM-7</td><td>Yes — position 67 is histidine</td><td>No — position 67 is proline</td></tr>
+      <tr><td>Dominant breeds</td><td>Holstein (most commercial dairy)</td><td>Jersey, Guernsey, Asian/African breeds, goats, sheep</td></tr>
+      <tr><td>Digestive symptoms</td><td>More bloating, discomfort in some people</td><td>Generally better tolerated</td></tr>
+      <tr><td>BCM-7 effects</td><td>Opioid-like peptide — may slow gut motility, promote inflammation</td><td>N/A</td></tr>
+    </table>
+    <p style="margin-top: 1rem; color: var(--muted);">BCM-7 (beta-casomorphin-7) is an opioid peptide released during A1 casein digestion. It may contribute to digestive discomfort, delayed gut transit, and inflammatory responses. Many people who think they're "lactose intolerant" are actually A1 casein intolerant.</p>
+    <div class="cite">Jianqin et al. (2016). "Effects of milk containing only A2 beta casein versus milk containing both A1 and A2 beta casein proteins on gastrointestinal physiology." Nutrition Journal. <a href="https://doi.org/10.1186/s12937-016-0147-z">doi:10.1186/s12937-016-0147-z</a></div>
+  </div>
+
+  <h3>Thermogenic Effect</h3>
+  <div class="card">
+    <h4>Why Milk Makes Some People Warm <span class="confidence confidence-low">LOW confidence</span></h4>
+    <ul>
+      <li><strong>Thermic effect of food (TEF):</strong> protein has the highest TEF (20-30% of calories burned during digestion). Milk is ~20% protein by calories.</li>
+      <li><strong>Calcium-mediated thermogenesis:</strong> some evidence that calcium increases fat oxidation and UCP1 expression in adipose tissue</li>
+      <li><strong>Individual variation is large</strong> — some people feel very warm after milk, others feel nothing. May relate to thyroid function, insulin sensitivity, or gut bacteria composition.</li>
+      <li>From primal diet community: "If you're warm in winter then likely normal or high [thyroid]" — warmth after food = good metabolic sign</li>
+      <li><strong>Mechanism is not fully clear.</strong> Likely a combination of protein TEF + calcium + individual metabolic state.</li>
+    </ul>
+  </div>
+
+  <h3>Raw vs Pasteurized</h3>
+  <div class="card">
+    <h4>What Pasteurization Destroys <span class="confidence confidence-med">MEDIUM confidence</span></h4>
+    <table>
+      <tr><th>Component</th><th>Raw Milk</th><th>Pasteurized</th></tr>
+      <tr><td>Beneficial bacteria</td><td>100+ species (Lactobacillus, Bifido, etc.)</td><td>Killed</td></tr>
+      <tr><td>Enzymes (lactase, lipase, phosphatase)</td><td>Active — aid digestion</td><td>Denatured — must rely on your own enzymes</td></tr>
+      <tr><td>Immunoglobulins (IgA, IgG)</td><td>Active — immune support</td><td>Denatured</td></tr>
+      <tr><td>Lactoferrin</td><td>Active — antimicrobial, iron binding</td><td>Reduced/denatured</td></tr>
+      <tr><td>Whey proteins</td><td>Native conformation</td><td>Partially denatured — altered structure</td></tr>
+      <tr><td>Vitamins B6, B12, C</td><td>Full spectrum</td><td>10-30% reduction</td></tr>
+      <tr><td>Lactoperoxidase system</td><td>Active — natural preservation</td><td>Destroyed — milk spoils rapidly once opened</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <h4>Optimal Milk Protocol for Growth <span class="confidence confidence-med">MEDIUM confidence</span></h4>
+    <ul>
+      <li><strong>Amount:</strong> 16-24oz (480-700ml) daily — the sweet spot for IGF-1 stimulation without excessive calories</li>
+      <li><strong>Type:</strong> A2 grass-fed, raw if available. Whole fat (need the fat for nutrient absorption)</li>
+      <li><strong>Timing:</strong> Split AM (with breakfast or alone) and PM (2-3h before bed). Bedtime dose leverages GH surge.</li>
+      <li><strong>Start slow:</strong> 8oz for 1-2 weeks (test for acne/digestive reaction) → increase to 16oz → then 24oz</li>
+      <li><strong>Stack with:</strong> adequate sleep (8+h), vitamin D, K2, zinc, resistance exercise, hanging/stretching for spinal decompression</li>
+    </ul>
+  </div>
+
+  <div class="callout-honest">
+    <strong>🔬 Honest Take:</strong> Milk stimulating IGF-1 is well-documented. The height growth data is observational (ethical constraints prevent RCTs on children's growth). A2 vs A1 evidence is growing but based on limited trials (n=40-50 typically). The thermogenic effect is anecdotal with some mechanistic plausibility. Raw vs pasteurized: the compositional differences are measurable fact; the health implications are debated and under-studied due to regulatory barriers. Best estimate: raw A2 grass-fed > pasteurized A2 > conventional A1.
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- CHAPTER 9: COOKING -->
+<!-- ═══════════════════════════════════════════════════ -->
+<section id="ch9">
+  <div class="chapter-num">Chapter 9</div>
+  <h2><span class="icon">🔥</span> Cooking &amp; Food Processing</h2>
+  <p class="section-desc">Cooking is the oldest food technology. It makes some nutrients more available and destroys others. Understanding the tradeoffs is key.</p>
+
+  <div class="card">
+    <h4>Three Things Happen When You Cook <span class="confidence confidence-high">HIGH confidence</span></h4>
+    <table>
+      <tr><th>Process</th><th>What Happens</th><th>Products</th><th>Health Impact</th></tr>
+      <tr><td><strong>1. Maillard Reaction</strong></td><td>Amino acids + reducing sugars react at >140°C (280°F)</td><td>Melanoidins (brown color), flavor compounds, AGEs</td><td>Flavor ✓ but AGEs accumulate</td></tr>
+      <tr><td><strong>2. Lipid Oxidation</strong></td><td>PUFAs react with O₂ at high temperatures</td><td>Aldehydes (4-HNE, MDA), peroxides</td><td>DNA damage, inflammation, atherosclerosis</td></tr>
+      <tr><td><strong>3. Protein Denaturation</strong></td><td>Heat unfolds protein structure (>40-60°C)</td><td>Unfolded proteins — may be easier or harder to digest</td><td>Mixed — can increase or decrease bioavailability</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <h4>AGEs in Detail <span class="confidence confidence-med">MEDIUM confidence</span></h4>
+    <ul>
+      <li><strong>Formation:</strong> Maillard reaction intermediates (Amadori products) rearrange into AGEs. Higher temp + longer time = more AGEs.</li>
+      <li><strong>Dietary intake:</strong> Estimated 25,000-75,000 kU/day in typical Western diet. ~10% absorbed.</li>
+      <li><strong>Endogenous production:</strong> Your body also makes AGEs from blood sugar + proteins. Diabetics produce vastly more (chronic high glucose).</li>
+      <li><strong>Damage mechanism:</strong> AGEs bind RAGE receptors → NF-κB activation → inflammation, oxidative stress. Also cross-link collagen/elastin → stiff arteries, wrinkled skin, joint degradation.</li>
+      <li><strong>Clearance:</strong> Kidneys remove most — kidney disease → AGE accumulation → accelerated aging.</li>
+    </ul>
+    <table>
+      <tr><th>Cooking Method</th><th>AGE Production</th><th>Examples</th></tr>
+      <tr><td>Raw</td><td style="color: var(--green);">Lowest</td><td>Sashimi, steak tartare, ceviche</td></tr>
+      <tr><td>Boiling / Steaming</td><td style="color: var(--green);">Low</td><td>Stewed meat, poached fish</td></tr>
+      <tr><td>Medium-rare cooking</td><td style="color: var(--yellow);">Low-moderate</td><td>Seared steak (rare center)</td></tr>
+      <tr><td>Roasting / Baking</td><td style="color: var(--orange);">Moderate</td><td>Roast chicken, baked goods</td></tr>
+      <tr><td>Grilling / Broiling</td><td style="color: var(--accent2);">High</td><td>Charred meat, BBQ</td></tr>
+      <tr><td>Deep frying</td><td style="color: var(--accent2);">Very high</td><td>Fried chicken, french fries</td></tr>
+    </table>
+    <div class="cite">Uribarri et al. (2010). "Advanced glycation end products in foods and a practical guide to their reduction in the diet." J Am Diet Assoc. <a href="https://doi.org/10.1016/j.jada.2010.03.018">doi:10.1016/j.jada.2010.03.018</a></div>
+  </div>
+
+  <div class="card">
+    <h4>Temperature Thresholds <span class="confidence confidence-high">HIGH confidence</span></h4>
+    <table>
+      <tr><th>Temperature</th><th>What Happens</th></tr>
+      <tr><td>40-60°C (104-140°F)</td><td>Enzymes begin denaturing. Probiotics die above 46°C.</td></tr>
+      <tr><td>60-70°C (140-158°F)</td><td>Proteins denature. Most bacteria killed. "Pasteurization zone."</td></tr>
+      <tr><td>100°C (212°F)</td><td>Water boils. B vitamins and vitamin C begin degrading significantly.</td></tr>
+      <tr><td>140°C (280°F)</td><td>Maillard reaction begins. Browning starts. AGE production accelerates.</td></tr>
+      <tr><td>160-180°C (320-355°F)</td><td>PUFA oxidation becomes significant. Caramelization of sugars.</td></tr>
+      <tr><td>200°C+ (390°F+)</td><td>Charring. Heterocyclic amines (HCAs) form. PAH from smoke. AGEs spike.</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <h4>What Cooking Does to Specific Nutrients</h4>
+    <table>
+      <tr><th>Nutrient</th><th>Effect of Cooking</th><th>Better Raw or Cooked?</th></tr>
+      <tr><td>Vitamin C</td><td>Destroyed 15-55% depending on method</td><td style="color: var(--green);">Raw</td></tr>
+      <tr><td>B vitamins</td><td>10-40% loss (water-soluble — leach into cooking liquid)</td><td style="color: var(--green);">Raw (or drink the broth)</td></tr>
+      <tr><td>Enzymes</td><td>Completely destroyed above 46-60°C</td><td style="color: var(--green);">Raw</td></tr>
+      <tr><td>Probiotics</td><td>Killed above 46°C</td><td style="color: var(--green);">Raw</td></tr>
+      <tr><td>Lycopene</td><td>Increased bioavailability (cell walls break down)</td><td style="color: var(--yellow);">Cooked (tomatoes)</td></tr>
+      <tr><td>Protein digestibility</td><td>Slightly increased for some proteins (denaturation)</td><td style="color: var(--yellow);">Varies</td></tr>
+      <tr><td>Minerals</td><td>Mostly heat-stable (but leach into water)</td><td>Either (but keep broth)</td></tr>
+      <tr><td>Fat-soluble vitamins (A, D, E, K)</td><td>Moderately stable — ~10-15% loss</td><td style="color: var(--yellow);">Slightly better raw</td></tr>
+    </table>
+  </div>
+
+  <div class="callout">
+    <strong>⚡ Practical takeaway:</strong> Raw is nutritionally optimal when safe. When you cook, go rare/medium-rare, low temp, moist methods (stew > grill), and keep cooking liquids (bone broth is just nutrients that leached out of the food). The dose makes the poison — occasional grilled steak won't kill you, but daily charred meat at 250°C is a different story.
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- CHAPTER 10: KETO -->
+<!-- ═══════════════════════════════════════════════════ -->
+<section id="ch10">
+  <div class="chapter-num">Chapter 10</div>
+  <h2><span class="icon">⚡</span> Keto &amp; Metabolic Adaptation</h2>
+  <p class="section-desc">Switching from glucose to fat as your primary fuel is a real metabolic shift. It takes time, and it temporarily sucks.</p>
+
+  <div class="card">
+    <h4>The Adaptation Timeline <span class="confidence confidence-high">HIGH confidence</span></h4>
+    <table>
+      <tr><th>Phase</th><th>Timeline</th><th>What Happens</th><th>Symptoms</th></tr>
+      <tr><td>Glycogen depletion</td><td>Days 1-3</td><td>Liver and muscle glycogen exhausted. Body starts upregulating fat oxidation enzymes.</td><td>Fatigue, brain fog, carb cravings, irritability</td></tr>
+      <tr><td>"Keto flu"</td><td>Days 3-10</td><td>Electrolyte flush (insulin drops → kidneys excrete sodium/potassium/magnesium). Ketone production ramping up but not efficient yet.</td><td>Headache, nausea, muscle cramps, weakness, dizziness</td></tr>
+      <tr><td>Partial adaptation</td><td>Weeks 2-3</td><td>Liver producing ketones efficiently. Brain starts using BHB for ~30-40% of energy. Muscles still not fully fat-adapted.</td><td>Energy returning but variable. Gym performance still reduced.</td></tr>
+      <tr><td>Full adaptation</td><td>Weeks 4-8</td><td>Mitochondria have upregulated fat oxidation enzymes (CPT1, HADH). Muscles prefer fat. Brain using 60-70% ketones.</td><td>Stable energy, mental clarity, gym performance recovering.</td></tr>
+      <tr><td>Fat-adapted athlete</td><td>3-6 months</td><td>Peak fat oxidation rates. Can sustain high-intensity exercise on ketones + fatty acids. Glycogen sparing maximized.</td><td>Sustained energy without crashes. Fasting is effortless.</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <h4>Why Gym Performance Drops Initially <span class="confidence confidence-high">HIGH confidence</span></h4>
+    <ul>
+      <li><strong>Glycolytic pathways downregulated</strong> — heavy lifting and sprints rely on fast glycolysis. Without glycogen reserves and with pyruvate dehydrogenase kinase upregulated, your anaerobic power drops 10-30%.</li>
+      <li><strong>Creatine phosphate unaffected</strong> — very short efforts (1-5 sec) are fine. It's the 15-60 second range that suffers most.</li>
+      <li><strong>Solution:</strong> Drop weights 20-30% during adaptation. Focus on volume over intensity. 2-3x/week is plenty. Don't chase PRs for 4-6 weeks.</li>
+      <li><strong>After adaptation:</strong> Aerobic performance may exceed pre-keto levels. Anaerobic may remain slightly lower but compensated by improved recovery and endurance.</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h4>Electrolyte Requirements <span class="confidence confidence-high">HIGH confidence</span></h4>
+    <p>The #1 reason people fail keto is electrolyte depletion. Low insulin = kidneys dump sodium = you lose potassium and magnesium with it:</p>
+    <table>
+      <tr><th>Electrolyte</th><th>Daily Need on Keto</th><th>Best Sources</th></tr>
+      <tr><td><strong>Sodium</strong></td><td>5-7g (2-3x normal)</td><td>Salt generously. Bone broth. Pickle juice.</td></tr>
+      <tr><td><strong>Potassium</strong></td><td>3.5-4.5g</td><td>Avocado, spinach, meat, salt substitute (KCl)</td></tr>
+      <tr><td><strong>Magnesium</strong></td><td>400-500mg</td><td>Mag glycinate/citrate supplement, dark chocolate, nuts</td></tr>
+    </table>
+    <p style="margin-top: 1rem; color: var(--muted);">Most "keto flu" symptoms are literally just electrolyte deficiency. Salt your food aggressively and supplement magnesium. It's that simple.</p>
+  </div>
+
+  <h3>The Randle Cycle</h3>
+  <div class="card">
+    <h4>Fat + Carbs Together = Problem <span class="confidence confidence-high">HIGH confidence</span></h4>
+    <p>The Randle cycle (glucose-fatty acid cycle) describes metabolic competition between glucose and fat oxidation:</p>
+    <ul>
+      <li>When both glucose and fatty acids are available, cells must choose which to burn</li>
+      <li>High glucose → insulin → suppresses fat oxidation → fat gets stored</li>
+      <li>High fat + high carb simultaneously → insulin resistance pathway (muscles reject glucose in favor of fat, glucose stays elevated, more insulin needed)</li>
+      <li><strong>This is why high-fat + high-carb is the worst combination</strong> — it's not fat OR carbs that cause metabolic syndrome, it's both together</li>
+      <li>Pick a lane: high-fat/low-carb (keto) OR high-carb/low-fat. The SAD combines the worst of both.</li>
+    </ul>
+    <div class="cite">Randle et al. (1963). "The glucose fatty-acid cycle: its role in insulin sensitivity and the metabolic disturbances of diabetes mellitus." Lancet. <a href="https://doi.org/10.1016/S0140-6736(63)91500-9">doi:10.1016/S0140-6736(63)91500-9</a></div>
+  </div>
+
+  <div class="callout-honest">
+    <strong>🔬 Honest Take:</strong> Keto adaptation physiology is well-characterized. The timeline is consistent across studies and anecdotal reports. The Randle cycle is textbook biochemistry. Where it gets debatable: long-term keto vs cyclical keto vs carnivore, optimal protein levels on keto (too much protein → gluconeogenesis vs adequate for muscle preservation), and whether everyone responds equally well. Some people thrive on keto for years; others do better cycling carbs around exercise. Individual variation is real. The 4-week commitment is non-negotiable for any fair test.
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- CHAPTER 11: MYTH BUSTERS -->
+<!-- ═══════════════════════════════════════════════════ -->
+<section id="ch11">
+  <div class="chapter-num">Chapter 11</div>
+  <h2><span class="icon">💥</span> Myth Busters</h2>
+  <p class="section-desc">The biggest lies in nutrition, held up to the light. Each myth includes the evidence for, against, and an honest assessment.</p>
+
+  <div class="card myth-card">
+    <div class="label">Myth</div>
+    <h4>"Saturated fat causes heart disease" <span class="confidence confidence-high">HIGH confidence it's wrong</span></h4>
+    <p>Based on Ancel Keys' Seven Countries Study (1958) — cherry-picked 7 of 22 available countries to show a correlation. When all 22 are plotted, the correlation disappears.</p>
+    <ul>
+      <li><strong>Siri-Tarino et al. (2010)</strong> meta-analysis of 21 prospective studies, 347,747 subjects: "No significant evidence that saturated fat is associated with increased risk of CHD or CVD." <a href="https://doi.org/10.3945/ajcn.2009.27725" style="color: var(--dim);">doi:10.3945/ajcn.2009.27725</a></li>
+      <li><strong>Chowdhury et al. (2014)</strong> meta-analysis, 72 studies, 600,000+ participants: No association between saturated fat and cardiovascular disease. <a href="https://doi.org/10.7326/M13-1788" style="color: var(--dim);">doi:10.7326/M13-1788</a></li>
+      <li><strong>Harcombe et al. (2015)</strong> re-examined the original data behind dietary guidelines: "Dietary recommendations were introduced for 220 million US and 56 million UK citizens by 1983, in the absence of supporting evidence." <a href="https://doi.org/10.1136/openhrt-2014-000196" style="color: var(--dim);">doi:10.1136/openhrt-2014-000196</a></li>
+    </ul>
+    <p style="margin-top: 1rem;"><strong>What actually matters:</strong> Oxidized LDL (from seed oils), systemic inflammation, insulin resistance, and metabolic syndrome — not saturated fat intake.</p>
+  </div>
+
+  <div class="card myth-card">
+    <div class="label">Myth</div>
+    <h4>"Dietary cholesterol raises blood cholesterol" <span class="confidence confidence-high">HIGH confidence it's wrong</span></h4>
+    <p>Your liver produces ~80% of your cholesterol. When you eat more, your liver makes less (feedback regulation). The 2015-2020 Dietary Guidelines finally removed the cholesterol limit, stating "cholesterol is not a nutrient of concern for overconsumption."</p>
+    <ul>
+      <li>Eggs contain ~186mg cholesterol each. Egg consumption studies show negligible impact on blood cholesterol in most people.</li>
+      <li>~25% of people are "hyper-responders" who see LDL increase — but their LDL particles tend to be large/buoyant (benign pattern A), not small/dense (atherogenic pattern B).</li>
+    </ul>
+  </div>
+
+  <div class="card myth-card">
+    <div class="label">Myth</div>
+    <h4>"Seed oils are heart-healthy" <span class="confidence confidence-high">HIGH confidence it's wrong</span></h4>
+    <p>Canola, soybean, sunflower, corn oil — 50-75% PUFA (mostly linoleic acid), extracted with hexane solvent, degummed, bleached, and deodorized at 200-270°C. They're oxidized before you buy them.</p>
+    <ul>
+      <li>The Sydney Diet Heart Study (1966-73): replacing saturated fat with safflower oil (LA) <strong>increased</strong> all-cause mortality by 62% and cardiovascular mortality by 70%. <a href="https://doi.org/10.1136/bmj.e8707" style="color: var(--dim);">doi:10.1136/bmj.e8707</a> (re-analyzed 2013)</li>
+      <li>The Minnesota Coronary Experiment (1968-73): corn oil replacement lowered cholesterol but <strong>increased</strong> mortality. For every 30mg/dL cholesterol lowering, there was a 22% higher risk of death. <a href="https://doi.org/10.1136/bmj.i1246" style="color: var(--dim);">doi:10.1136/bmj.i1246</a> (re-analyzed 2016)</li>
+      <li>Modern seed oil consumption is ~80g/day in the US — this is an evolutionary novelty. Our ancestors consumed 1-4g/day of LA.</li>
+    </ul>
+  </div>
+
+  <div class="card myth-card">
+    <div class="label">Myth</div>
+    <h4>"Sunscreen prevents cancer — always wear it" <span class="confidence confidence-med">MEDIUM confidence it's misleading</span></h4>
+    <p>Melanoma rates have increased despite sunscreen use increasing. The relationship is more nuanced:</p>
+    <ul>
+      <li>Most sunscreens block UVB (which triggers vitamin D synthesis) but allow UVA through (which penetrates deeper and may cause more DNA damage)</li>
+      <li>Vitamin D deficiency (from sun avoidance + sunscreen) is associated with higher rates of colorectal, breast, prostate cancer, MS, heart disease, depression</li>
+      <li>A 2016 Swedish study (Lindqvist et al.) of 29,518 women over 20 years: women who avoided sun exposure had <strong>2x higher all-cause mortality</strong> than highest sun exposure group. <a href="https://doi.org/10.1111/joim.12496" style="color: var(--dim);">doi:10.1111/joim.12496</a></li>
+      <li><strong>Nuance:</strong> Burning is genuinely damaging (DNA repair overwhelmed). Regular, moderate sun exposure without burning is protective. The dose makes the difference.</li>
+    </ul>
+  </div>
+
+  <div class="card myth-card">
+    <div class="label">Myth</div>
+    <h4>"Plant protein = animal protein" <span class="confidence confidence-high">HIGH confidence it's wrong</span></h4>
+    <table>
+      <tr><th>Metric</th><th>Animal Protein</th><th>Plant Protein</th></tr>
+      <tr><td>DIAAS score</td><td>90-130%</td><td>40-75%</td></tr>
+      <tr><td>Essential amino acids</td><td>Complete in every source</td><td>Incomplete — limiting AAs (lysine in grains, methionine in legumes)</td></tr>
+      <tr><td>Digestibility</td><td>95-97%</td><td>70-85%</td></tr>
+      <tr><td>Anti-nutrients</td><td>None</td><td>Phytates, lectins, oxalates, trypsin inhibitors</td></tr>
+      <tr><td>Volume needed for 30g protein</td><td>~150g chicken breast</td><td>~500g+ tofu or beans</td></tr>
+    </table>
+    <p style="margin-top: 1rem; color: var(--muted);">DIAAS (Digestible Indispensable Amino Acid Score) is the gold standard measure of protein quality, replacing the older PDCAAS which capped at 100% and masked differences.</p>
+  </div>
+
+  <div class="card myth-card">
+    <div class="label">Myth</div>
+    <h4>"Flaxseed/chia gives you omega-3" <span class="confidence confidence-high">HIGH confidence it's misleading</span></h4>
+    <p>They give you <strong>ALA</strong> — a precursor that converts to the usable forms (EPA/DHA) at 5-10% and 1-3% respectively. That's like saying you have a car because you own 3% of a tire. <strong>Eat fish.</strong></p>
+  </div>
+
+  <div class="card myth-card">
+    <div class="label">Myth</div>
+    <h4>"Eat more fiber for constipation" <span class="confidence confidence-med">MEDIUM confidence it's often wrong</span></h4>
+    <p>The Ho et al. 2012 study showed stopping all fiber <em>resolved</em> constipation in their patient cohort. Fiber adds bulk — if the problem is motility (slow transit) or dysbiosis, adding bulk makes things worse. Like adding more cars to a traffic jam.</p>
+  </div>
+
+  <div class="card myth-card">
+    <div class="label">Myth</div>
+    <h4>"Bad eyesight is just genetics" <span class="confidence confidence-high">HIGH confidence it's wrong</span></h4>
+    <p>Myopia rates exploded 400-500% in one generation. DNA doesn't mutate that fast. Indigenous populations prove it — near-zero myopia until modern lifestyle adoption. Outdoor time, not genes, is the primary driver. (See Chapter 7 for full evidence.)</p>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- CHAPTER 12: EPISTEMICS -->
+<!-- ═══════════════════════════════════════════════════ -->
+<section id="ch12">
+  <div class="chapter-num">Chapter 12</div>
+  <h2><span class="icon">🔬</span> Epistemic Honesty</h2>
+  <p class="section-desc">How to think about nutrition science — its strengths, weaknesses, and why you should question everything, including this guide.</p>
+
+  <div class="card">
+    <h4>How to Read Nutrition Studies</h4>
+    <ul>
+      <li><strong>Check the study type:</strong> RCT > prospective cohort > retrospective cohort > case-control > case report > expert opinion</li>
+      <li><strong>Check the funding:</strong> Industry-funded studies are 4-8x more likely to report favorable outcomes for the funder's product (Lexchin et al. 2003)</li>
+      <li><strong>Check the endpoints:</strong> "LDL went down" is a surrogate endpoint. "People lived longer" is a hard endpoint. Surrogate endpoints have been wrong many times (see: margarine lowered cholesterol but increased mortality).</li>
+      <li><strong>Check the duration:</strong> Nutrition effects often take years to manifest. A 12-week study can miss chronic accumulation effects (AGEs, seed oil tissue loading, etc.)</li>
+      <li><strong>Check the confounders:</strong> Did they control for exercise, sleep, smoking, alcohol, socioeconomic status? Usually not all of them.</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h4>Major Biases in Nutrition Research</h4>
+    <table>
+      <tr><th>Bias</th><th>What It Is</th><th>Example</th></tr>
+      <tr><td><strong>Healthy User Bias</strong></td><td>People who follow health recommendations also exercise, sleep better, smoke less, etc. The behavior is confounded with overall health consciousness.</td><td>"Whole grain eaters live longer" — they also exercise more, drink less, and have higher income.</td></tr>
+      <tr><td><strong>Industry Funding</strong></td><td>Companies fund studies designed to find results favorable to their products.</td><td>Coca-Cola funded "exercise not diet" research. Sugar industry paid Harvard scientists to blame fat (1960s). Seed oil companies fund LA safety studies.</td></tr>
+      <tr><td><strong>Publication Bias</strong></td><td>Positive results get published; null results don't.</td><td>For every study showing a supplement works, there may be 5 unpublished studies showing it doesn't.</td></tr>
+      <tr><td><strong>Recall Bias</strong></td><td>People poorly remember what they ate. Food frequency questionnaires are notoriously inaccurate.</td><td>Virtually all observational nutrition studies rely on self-reported dietary recall.</td></tr>
+      <tr><td><strong>Surrogate Endpoint Trap</strong></td><td>Measuring a biomarker (LDL, blood pressure) instead of actual outcomes (death, disease).</td><td>Multiple drugs lowered LDL but increased mortality (torcetrapib, CETP inhibitors).</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <h4>Why RCTs Are Hard in Nutrition</h4>
+    <ul>
+      <li><strong>Blinding is impossible</strong> — you can't give someone a placebo steak. People know what they're eating.</li>
+      <li><strong>Compliance is poor</strong> — keeping people on a strict diet for years is unrealistic outside of metabolic ward studies</li>
+      <li><strong>Duration needed is long</strong> — chronic disease takes decades. Most RCTs run 6 months to 2 years.</li>
+      <li><strong>Ethical constraints</strong> — you can't randomize children to nutritionally deficient diets to study growth</li>
+      <li><strong>Cost</strong> — large, long-duration RCTs cost hundreds of millions. Who pays? Usually industry (see bias above).</li>
+      <li><strong>Result:</strong> We're stuck with mostly observational data, supplemented by mechanistic studies and small metabolic ward trials. This is why nutrition science is perpetually uncertain.</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h4>Our Approach</h4>
+    <p>Given the limitations above, we use a triangulation method:</p>
+    <ul>
+      <li><strong>1. Mechanistic reasoning</strong> — does the biochemistry make sense? (e.g., lipid peroxidation chemistry is well-characterized)</li>
+      <li><strong>2. Ancestral observation</strong> — what did humans eat for 200,000+ years before chronic disease became epidemic? (Answer: meat, organs, fish, some plants, zero seed oils)</li>
+      <li><strong>3. Best available evidence</strong> — meta-analyses, RCTs where they exist, cohort studies with proper controls</li>
+      <li><strong>4. N=1 experimentation</strong> — your body is your lab. Track what you eat, how you feel, your biomarkers. Adjust.</li>
+    </ul>
+    <p style="margin-top: 1rem;">When all four converge, confidence is high. When they conflict, we flag uncertainty. <strong>We don't claim certainty we don't have.</strong></p>
+  </div>
+
+  <div class="card">
+    <h4>The Replication Crisis</h4>
+    <p>A 2015 study in <em>Science</em> attempted to replicate 100 psychology studies. Only 36% replicated. Nutrition science is likely similar or worse. Many "landmark" findings that shaped dietary guidelines were never replicated or were later contradicted.</p>
+    <ul>
+      <li>The original dietary cholesterol limit? Based on rabbit studies (herbivores, completely different lipid metabolism)</li>
+      <li>The "low-fat is healthy" consensus? Based on the flawed Seven Countries Study and confirmed by studies now shown to be industry-influenced</li>
+      <li>The food pyramid? Created by USDA — an agency whose mandate is to promote American agriculture, not optimize human health</li>
+    </ul>
+    <div class="cite">Open Science Collaboration (2015). "Estimating the reproducibility of psychological science." Science. <a href="https://doi.org/10.1126/science.aac4716">doi:10.1126/science.aac4716</a></div>
+  </div>
+
+  <div class="callout-honest">
+    <strong>🔬 The Honest Truth About This Guide:</strong> Everything in here represents our best interpretation of available evidence. Some claims are rock-solid biochemistry (lipid peroxidation, transporter mechanisms, DHA brain structure). Some are strongly supported by multiple evidence types (eyesight/outdoor time, fiber paradox, saturated fat innocence). Some are emerging with moderate evidence (raw dairy benefits, AGE clinical significance, optimal PUFA levels). And some are informed speculation based on mechanistic reasoning + ancestral patterns (optimal milk dosing for growth, exact omega-6:3 target). We've tried to rate everything honestly. When new evidence contradicts something here, we'll update it. <strong>Question everything — including us.</strong>
+  </div>
+</section>
+
+</div>
+
+<footer>
+  <p>Built by GnG ⚡ for Ethan</p>
+  <p style="margin-top: 0.5rem;">Not medical advice. This is one interpretation of available evidence, rated for confidence. Question everything — including this guide.</p>
+  <p style="margin-top: 0.5rem;">Last updated: February 2026</p>
+</footer>
+
+</body>
+</html>
